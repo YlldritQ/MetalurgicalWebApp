@@ -4,7 +4,7 @@
     {
         public string NewToken { get; set; }
 
-        //this would be returned to front
+        //return to front-end
         public UserInfoResult UserInfo { get; set; }
     }
 }

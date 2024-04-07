@@ -2,7 +2,6 @@
 using backend_dotnet7.Core.Dtos.Log;
 using backend_dotnet7.Core.Entities;
 using backend_dotnet7.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -28,17 +27,19 @@ namespace backend_dotnet7.Core.Services
             await _context.Logs.AddAsync(newLog);
             await _context.SaveChangesAsync();
         }
+
+
         public async Task<IEnumerable<GetLogDto>> GetLogsAsync()
         {
             var logs = await _context.Logs
-                .Select(q => new GetLogDto
-                {
-                    CreatedAt = q.CreatedAt,
-                    Description = q.Description,
-                    UserName = q.UserName,
-                })
-                .OrderByDescending(q => q.CreatedAt)
-                .ToListAsync();
+                 .Select(q => new GetLogDto
+                 {
+                     CreatedAt = q.CreatedAt,
+                     Description = q.Description,
+                     UserName = q.UserName,
+                 })
+                 .OrderByDescending(q => q.CreatedAt)
+                 .ToListAsync();
             return logs;
         }
 
@@ -46,14 +47,14 @@ namespace backend_dotnet7.Core.Services
         {
             var logs = await _context.Logs
                 .Where(q => q.UserName == User.Identity.Name)
-                .Select(q => new GetLogDto
-                {
-                    CreatedAt = q.CreatedAt,
-                    Description = q.Description,
-                    UserName = q.UserName,
-                })
-                .OrderByDescending(q => q.CreatedAt)
-                .ToListAsync();
+               .Select(q => new GetLogDto
+               {
+                   CreatedAt = q.CreatedAt,
+                   Description = q.Description,
+                   UserName = q.UserName,
+               })
+               .OrderByDescending(q => q.CreatedAt)
+               .ToListAsync();
             return logs;
         }
     }

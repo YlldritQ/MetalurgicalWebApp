@@ -12,5 +12,6 @@ namespace backend_dotnet7.Core.Entities
 
         [NotMapped]
         public IList<string> Roles { get; set; }
+
     }
 }

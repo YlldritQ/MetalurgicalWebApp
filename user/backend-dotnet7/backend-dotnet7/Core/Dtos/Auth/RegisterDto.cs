@@ -6,6 +6,7 @@ namespace backend_dotnet7.Core.Dtos.Auth
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
         [Required(ErrorMessage = "UserName is required")]
         public string UserName { get; set; }
         public string Email { get; set; }
@@ -13,5 +14,6 @@ namespace backend_dotnet7.Core.Dtos.Auth
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
         public string Address { get; set; }
+
     }
 }

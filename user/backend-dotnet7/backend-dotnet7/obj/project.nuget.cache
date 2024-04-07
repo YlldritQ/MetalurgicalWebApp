@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "j9QZoyIHC16LGoZe8KOb/Kf+oVqURAy2R/OvRWDad6uUaX0VlX6baAJ82/L8Cl16XWk7u6y3IuoFjQPhuy+i0w==",
+  "dgSpecHash": "qWcqgOoCSmnN0Jl5I2ecx34ehHhp61Oi+8eO4dN3sxr7Dkus5Q62xdtMyDr1irbNq7WvUZJYoMpI2xflUgeROw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\OneDrive\\Desktop\\test\\backend-dotnet7\\backend-dotnet7\\backend.csproj",
+  "projectFilePath": "C:\\Users\\PC\\OneDrive\\Desktop\\WebApplication\\MetalurgicalWebApp\\user\\backend-dotnet7\\backend-dotnet7\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

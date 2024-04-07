@@ -12,17 +12,15 @@ namespace backend_dotnet7.Core.DbContext
         }
 
         public DbSet<Log> Logs { get; set; }
-
         public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            // Config anything
             //1
             builder.Entity<ApplicationUser>(e =>
-            { 
+            {
                 e.ToTable("Users");
             });
             //2
@@ -41,7 +39,7 @@ namespace backend_dotnet7.Core.DbContext
                 e.ToTable("UserTokens");
             });
             //5
-            builder.Entity<IdentityRole<string>>(e =>
+            builder.Entity<IdentityRole>(e =>
             {
                 e.ToTable("Roles");
             });

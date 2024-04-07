@@ -6,8 +6,8 @@ namespace backend_dotnet7.Core.Interfaces
 {
     public interface IMessageService
     {
-        Task<GenerealServiceResponseDto> CreateNewMessageAsync(ClaimsPrincipal User, CreateMessageDto createMessageDto);
-        Task<IEnumerable<GetMessageDto>> GetMessageAsync();
+        Task<GeneralServiceResponseDto> CreateNewMessageAsync(ClaimsPrincipal User, CreateMessageDto createMessageDto);
+        Task<IEnumerable<GetMessageDto>> GetMessagesAsync();
         Task<IEnumerable<GetMessageDto>> GetMyMessagesAsync(ClaimsPrincipal User);
     }
 }

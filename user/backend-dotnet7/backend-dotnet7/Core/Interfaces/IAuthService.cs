@@ -6,15 +6,13 @@ namespace backend_dotnet7.Core.Interfaces
 {
     public interface IAuthService
     {
-        Task<GenerealServiceResponseDto> SeedRolesAsync();
-        Task<GenerealServiceResponseDto> RegisterAsync(RegisterDto registerDto);
+        Task<GeneralServiceResponseDto> SeedRolesAsync();
+        Task<GeneralServiceResponseDto> RegisterAsync(RegisterDto registerDto);
         Task<LoginServiceResponseDto?> LoginAsync(LoginDto loginDto);
-        Task<GenerealServiceResponseDto> UpdateRoleAsync(ClaimsPrincipal User, UpdateRoleDto updateRoleDto);
-        Task<LoginServiceResponseDto> MeAsync(MeDto meDto);
+        Task<GeneralServiceResponseDto> UpdateRoleAsync(ClaimsPrincipal User, UpdateRoleDto updateRoleDto);
+        Task<LoginServiceResponseDto?> MeAsync(MeDto meDto);
         Task<IEnumerable<UserInfoResult>> GetUsersListAsync();
-        Task<UserInfoResult> GetUserDetailsByUserName(string userName);
+        Task<UserInfoResult?> GetUserDetailsByUserNameAsync(string userName);
         Task<IEnumerable<string>> GetUsernamesListAsync();
-
-
     }
 }
