@@ -126,5 +126,23 @@ namespace backend_dotnet7.Controllers
 
             return Ok(usernames);
         }
+
+        [HttpDelete]
+        [Route("delete-user")]
+        [Authorize(Roles = StaticUserRoles.OwnerAdmin)]
+        public async Task<IActionResult> DeleteUser([FromBody] string UserName)
+        {
+            var DeleteUserResult = await _authService.DeleteUserAsync(User, UserName);
+
+            if (DeleteUserResult.IsSucceed)
+            {
+                return Ok(DeleteUserResult.Message);
+            }
+            else
+            {
+                return StatusCode(DeleteUserResult.StatusCode, DeleteUserResult.Message);
+            }
+
+        }
     }
 }

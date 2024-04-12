@@ -14,5 +14,6 @@ namespace backend_dotnet7.Core.Interfaces
         Task<IEnumerable<UserInfoResult>> GetUsersListAsync();
         Task<UserInfoResult?> GetUserDetailsByUserNameAsync(string userName);
         Task<IEnumerable<string>> GetUsernamesListAsync();
+        Task<GeneralServiceResponseDto> DeleteUserAsync(ClaimsPrincipal User, string UserName);
     }
 }

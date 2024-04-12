@@ -321,5 +321,83 @@ namespace backend_dotnet7.Core.Services
                 Roles = Roles
             };
         }
+        public async Task<GeneralServiceResponseDto> DeleteUserAsync(ClaimsPrincipal User, string UserName)
+        {
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user is null)
+                return new GeneralServiceResponseDto()
+                {
+                    IsSucceed = false,
+                    StatusCode = 409,
+                    Message = "User with given username does not exist"
+                };
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            // User is admin
+            if (User.IsInRole(StaticUserRoles.ADMIN))
+            {
+                if (userRoles.Count > 0 && (userRoles[0].Equals(StaticUserRoles.MANAGER) || userRoles[0].Equals(StaticUserRoles.USER)))
+                {
+                    var DelUser = await _userManager.DeleteAsync(user);
+                    if (!DelUser.Succeeded)
+                    {
+                        var errorString = "User Deletion failed because: ";
+                        foreach (var error in DelUser.Errors)
+                        {
+                            errorString += " # " + error.Description;
+                        }
+                        return new GeneralServiceResponseDto()
+                        {
+                            IsSucceed = false,
+                            StatusCode = 400,
+                            Message = errorString
+                        };
+                    }
+                    await _logService.SaveNewLog(UserName, "Deleted from Website");
+
+                    return new GeneralServiceResponseDto()
+                    {
+                        IsSucceed = true,
+                        StatusCode = 201,
+                        Message = "User Deleted Successfully"
+                    };
+                }
+            }
+            else if (User.IsInRole(StaticUserRoles.OWNER))
+            {
+                if (userRoles.Count > 0 && !userRoles[0].Equals(StaticUserRoles.OWNER))
+                {
+                    var DelUser = await _userManager.DeleteAsync(user);
+                    if (!DelUser.Succeeded)
+                    {
+                        var errorString = "User Deletion failed because: ";
+                        foreach (var error in DelUser.Errors)
+                        {
+                            errorString += " # " + error.Description;
+                        }
+                        return new GeneralServiceResponseDto()
+                        {
+                            IsSucceed = false,
+                            StatusCode = 400,
+                            Message = errorString
+                        };
+                    }
+                    await _logService.SaveNewLog(UserName, "Deleted from Website");
+
+                    return new GeneralServiceResponseDto()
+                    {
+                        IsSucceed = true,
+                        StatusCode = 201,
+                        Message = "User Deleted Successfully"
+                    };
+                }
+            }
+            return new GeneralServiceResponseDto()
+            {
+                IsSucceed = false,
+                StatusCode = 403,
+                Message = "You are not allowed to delete this user"
+            };
+        } 
     }
 }
