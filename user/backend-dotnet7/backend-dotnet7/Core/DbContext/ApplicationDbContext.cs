@@ -13,6 +13,8 @@ namespace backend_dotnet7.Core.DbContext
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
 
+        public DbSet<Termin> Termins { get; set; }
+
         public DbSet<Log> Logs { get; set; }
         public DbSet<Message> Messages { get; set; }
 
