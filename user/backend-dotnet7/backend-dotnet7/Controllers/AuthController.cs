@@ -127,6 +127,8 @@ namespace backend_dotnet7.Controllers
             return Ok(usernames);
         }
 
+        //Delete user
+
         [HttpDelete]
         [Route("delete-user")]
         [Authorize(Roles = StaticUserRoles.OwnerAdmin)]

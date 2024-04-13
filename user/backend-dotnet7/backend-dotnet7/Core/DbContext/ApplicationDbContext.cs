@@ -10,6 +10,7 @@ namespace backend_dotnet7.Core.DbContext
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+        public DbSet<Product> Products { get; set; }
 
         public DbSet<Log> Logs { get; set; }
         public DbSet<Message> Messages { get; set; }
