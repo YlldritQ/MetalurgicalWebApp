@@ -51,7 +51,7 @@ namespace backend_dotnet7.Controllers
 
         //Route Update User Role
         //Manager and User dont have access
-        [HttpPost]
+        [HttpPut]
         [Route("update-role")]
         [Authorize(Roles = StaticUserRoles.OwnerAdmin)]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto updateRoleDto)
