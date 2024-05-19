@@ -1,6 +1,6 @@
-import React from 'react'
-import GlobalRouter from './routes'
-import { ToastBar, Toaster } from 'react-hot-toast'
+import React from "react";
+import GlobalRouter from "./routes";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -8,7 +8,7 @@ const App = () => {
       <GlobalRouter />
       <Toaster />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

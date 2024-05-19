@@ -1,8 +1,12 @@
+import { FaUser } from "react-icons/fa";
+import PageAccessTemplate from "./page-access/PageAccessTemplate";
 
 const UserPage = () => {
   return (
-    <div>UserPage</div>
-  )
-}
+    <div className="pageTemplate2">
+      <PageAccessTemplate color="#FEC223" icon={FaUser} role="User" />
+    </div>
+  );
+};
 
-export default UserPage
+export default UserPage;

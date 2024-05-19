@@ -1,7 +1,11 @@
+import { FaUserShield } from "react-icons/fa";
+import PageAccessTemplate from "./page-access/PageAccessTemplate";
 const AdminPage = () => {
   return (
-    <div>AdminPage</div>
-  )
-}
+    <div className="pageTemplate2">
+      <PageAccessTemplate color="#9333EA" icon={FaUserShield} role="Admin" />
+    </div>
+  );
+};
 
-export default AdminPage
+export default AdminPage;
