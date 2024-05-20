@@ -1,4 +1,3 @@
-import React from "react";
 import GlobalRouter from "./routes";
 import { Toaster } from "react-hot-toast";
 

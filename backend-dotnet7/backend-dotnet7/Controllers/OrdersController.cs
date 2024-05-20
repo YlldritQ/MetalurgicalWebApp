@@ -1,4 +1,6 @@
-﻿using backend_dotnet7.Core.DbContext;
+﻿
+using AutoMapper;
+using backend_dotnet7.Core.DbContext;
 using backend_dotnet7.Core.Dtos.Orders;
 using backend_dotnet7.Core.Entities;
 using Microsoft.AspNetCore.Http;
@@ -12,23 +14,23 @@ namespace backend_dotnet7.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private IMapper _mapper { get; }
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context,IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;   
         }
         //CRUD
 
         //CREATE
         [HttpPost]
+        [Route("Create")]
         public async Task<IActionResult> CreateOrder([FromBody] CreateUpdateOrderDto dto)
         {
-            var newOrder = new OrderEntity()
-            {
-                Total = dto.Total,
-                Address = dto.Address,
-                PaymentMethod = dto.PaymentMethod,
-            };
+
+            OrderEntity newOrder = _mapper.Map<OrderEntity>(dto);
+         
             await _context.Orders.AddAsync(newOrder);
             await _context.SaveChangesAsync();
 
@@ -42,6 +44,7 @@ namespace backend_dotnet7.Controllers
             var orders = await _context.Orders.ToListAsync();
             return Ok(orders);
         }
+        //Read by Id
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<OrderEntity>> GetOrderByID([FromRoute] long id)

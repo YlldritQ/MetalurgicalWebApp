@@ -22,6 +22,8 @@ import LoginPage from "../pages/public/LoginPage";
 import NotFoundPage from "../pages/public/NotFoundPage";
 import RegisterPage from "../pages/public/RegisterPage";
 import UnauthorizedPage from "../pages/public/UnauthorizedPage";
+import Products from "../pages/products/Products.page";
+import AddProduct from "../pages/products/AddProduct.page";
 
 //implement lazy loading
 
@@ -41,6 +43,10 @@ const GlobalRouter = () => {
           <Route path={PATH_DASHBOARD.dashboard} element={<DashboardPage />} />
           <Route path={PATH_DASHBOARD.myLogs} element={<MyLogsPage />} />
           <Route path={PATH_DASHBOARD.user} element={<UserPage />} />
+          <Route path="/products">
+            <Route index element={<Products />} />
+            {/* <Route path="/add" element={<AddProduct />} /> */}
+          </Route>
         </Route>
         <Route element={<AuthGuard roles={managerAccessRoles} />}>
           <Route path={PATH_DASHBOARD.manager} element={<ManagerPage />} />

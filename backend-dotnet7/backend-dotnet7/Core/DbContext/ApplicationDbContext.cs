@@ -22,6 +22,19 @@ namespace backend_dotnet7.Core.DbContext
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<OrderEntity>()
+                .HasOne(order => order.Product)
+                .WithMany(products => products.Orders)
+                .HasForeignKey(order => order.ProductId);
+
+            builder.Entity<OrderEntity>()
+                .Property(o => o.Total)
+                .HasColumnType("decimal(18.2)");
+
+            builder.Entity<Product>()
+                .Property(company => company.Size)
+                .HasConversion<string>();
+
             //1
             builder.Entity<ApplicationUser>(e =>
             {

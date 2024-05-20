@@ -1,15 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
 
 namespace backend_dotnet7.Core.Entities
 {
-    public class OrderEntity
+    public class OrderEntity : BaseEntity<long>
     {
-        [Key]
-        public long Id { get; set; }
+       
         public DateTime OrderDate { get; set; } = DateTime.Now;
+
         public decimal Total { get; set; }
 
-        public String Address { get; set; }
-        public String PaymentMethod { get; set; }
+        public string Address { get; set; } 
+        public string PaymentMethod { get; set; }
+        public string Brand { get; set; }
+
+        //Relations
+        public long ProductId { get; set; }
+        public Product Product { get; set; } 
+
+        //Vendosim relacionin e ardhshem per tabelen tjeter
+        
     }
 }

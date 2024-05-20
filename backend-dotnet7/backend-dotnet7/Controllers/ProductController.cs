@@ -1,4 +1,5 @@
-﻿using backend_dotnet7.Core.DbContext;
+﻿using AutoMapper;
+using backend_dotnet7.Core.DbContext;
 using backend_dotnet7.Core.Dtos.Product;
 using backend_dotnet7.Core.Entities;
 using Microsoft.AspNetCore.Http;
@@ -13,10 +14,12 @@ namespace backend_dotnet7.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private IMapper _mapper { get; }
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         //CRUD
@@ -27,11 +30,8 @@ namespace backend_dotnet7.Controllers
         public async Task<IActionResult> CreateProduct([FromBody] CreateUpdateProductDto dto)
         {
 
-            var newProduct = new Product()
-            {
-                Brand = dto.Brand,
-                Title = dto.Title
-            };
+            Product newProduct = _mapper.Map<Product>(dto);
+            
 
             await _context.Products.AddAsync(newProduct);
             await _context.SaveChangesAsync();
@@ -42,10 +42,12 @@ namespace backend_dotnet7.Controllers
 
         //Read
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAllProducts() {
+        [Route("Get")]
+        public async Task<ActionResult<IEnumerable<CreateUpdateProductDto>>> GetAllProducts() {
             var products =await _context.Products.ToListAsync();
+            var convertedProducts = _mapper.Map<IEnumerable<CreateUpdateProductDto>>(products);
 
-            return Ok(products);
+            return Ok(convertedProducts);
         }
 
         [HttpGet]

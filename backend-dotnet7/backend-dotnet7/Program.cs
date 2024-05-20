@@ -1,3 +1,4 @@
+using backend_dotnet7.Core.AutoMapperConfig;
 using backend_dotnet7.Core.DbContext;
 using backend_dotnet7.Core.Entities;
 using backend_dotnet7.Core.Interfaces;
@@ -30,6 +31,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddAutoMapper(typeof(AutoMapperConfigProfile));
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options => {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 // Add Identity
 builder.Services

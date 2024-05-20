@@ -3,7 +3,9 @@
     public class CreateUpdateOrderDto
     {
         public decimal Total { get; set; }
-        public String Address { get; set; }
-        public String PaymentMethod { get; set; }
+        public string Address { get; set; } 
+        public string PaymentMethod { get; set; } 
+        public long ProductId {  get; set; }
+        public string Brand { get; set; } 
     }
 }

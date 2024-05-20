@@ -1012,3 +1012,5 @@ C:\Users\TECHCOM\Desktop\MetalurgicalWebApp\backend-dotnet7\backend-dotnet7\obj\
 C:\Users\TECHCOM\Desktop\MetalurgicalWebApp\backend-dotnet7\backend-dotnet7\obj\Debug\net8.0\backend.pdb
 C:\Users\TECHCOM\Desktop\MetalurgicalWebApp\backend-dotnet7\backend-dotnet7\obj\Debug\net8.0\backend.genruntimeconfig.cache
 C:\Users\TECHCOM\Desktop\MetalurgicalWebApp\backend-dotnet7\backend-dotnet7\obj\Debug\net8.0\ref\backend.dll
+C:\Users\TECHCOM\Desktop\MetalurgicalWebApp\backend-dotnet7\backend-dotnet7\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\TECHCOM\Desktop\MetalurgicalWebApp\backend-dotnet7\backend-dotnet7\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

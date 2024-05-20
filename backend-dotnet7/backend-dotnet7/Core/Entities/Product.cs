@@ -1,14 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using backend_dotnet7.Core.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend_dotnet7.Core.Entities
 {
-    public class Product
+    public class Product:BaseEntity<long>
     {
-        [Key]
-        public long Id { get; set; }
-        public string Brand { get; set; }
-        public string Title { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        public string Brand { get; set; } = string.Empty;
+        public ProductSize Size { get; set; }
+        public string Title { get; set; } = string.Empty;
+        
+
+        //Relation
+        public ICollection<OrderEntity> Orders { get; set; } 
     }
 }
