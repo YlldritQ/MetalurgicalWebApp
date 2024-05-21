@@ -3,6 +3,7 @@ export const PATH_PUBLIC = {
   register: "/register",
   login: "/login",
   unauthorized: "/unauthorized",
+  products: "/products",
   notFound: "/404",
 };
 
@@ -18,4 +19,6 @@ export const PATH_DASHBOARD = {
   user: "/dashboard/user",
 };
 
-export const baseUrl = "https://localhost:7149/api";
+export const baseUrl = "https://localhost:7149/api/Product/Get";
+
+export const updateUrl = "https://localhost:7149/api/Product";

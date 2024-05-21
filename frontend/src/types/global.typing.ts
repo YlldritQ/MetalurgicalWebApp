@@ -4,3 +4,9 @@ export interface IProduct {
   title: string;
   size: string;
 }
+
+export interface ICreateProduct {
+  brand: string;
+  title: string;
+  size: string;
+}

@@ -27,6 +27,7 @@ namespace backend_dotnet7.Controllers
 
         //Create
         [HttpPost]
+        [Route("Create")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateUpdateProductDto dto)
         {
 
@@ -36,7 +37,7 @@ namespace backend_dotnet7.Controllers
             await _context.Products.AddAsync(newProduct);
             await _context.SaveChangesAsync();
 
-            return Ok("Product Saved Successfully");
+            return Ok("Product Created Successfully");
 
         }
 
@@ -76,9 +77,9 @@ namespace backend_dotnet7.Controllers
             {
                 return NotFound("Product Not Found");
             }
-            product.Title = dto.Title;
             product.Brand = dto.Brand;
-            product.UpdatedAt = DateTime.Now;
+            product.Title = dto.Title;
+           
 
             await _context.SaveChangesAsync();
             return Ok("Product Updated Successfully");
