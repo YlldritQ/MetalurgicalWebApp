@@ -26,7 +26,6 @@ const AddCompany = () => {
     }
     httpModule
       .post("https://localhost:7149/api/Product/Create", product)
-      // problem
       .then(() => redirect("/products"))
       .catch((error) => console.log(error));
   };

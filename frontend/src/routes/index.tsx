@@ -24,8 +24,12 @@ import RegisterPage from "../pages/public/RegisterPage";
 import UnauthorizedPage from "../pages/public/UnauthorizedPage";
 import Products from "../pages/products/Products.page";
 import AddProduct from "../pages/products/AddProduct.page";
-import EditProduct from "../pages/edit-product/EditProduct.pages";
-import DeleteProduct from "../pages/delete-product/DeleteProduct.page";
+import EditProduct from "../pages/products/EditProduct.pages";
+import DeleteProduct from "../pages/products/DeleteProduct.page";
+import Orders from "../pages/orders/Orders.page";
+import AddOrders from "../pages/orders/AddOrders.page";
+import EditOrder from "../pages/orders/EditOrder.page";
+import DeleteOrder from "../pages/orders/DeleteOrder.page";
 
 //implement lazy loading
 
@@ -50,6 +54,12 @@ const GlobalRouter = () => {
             <Route path="add" element={<AddProduct />} />
             <Route path="edit/:id" element={<EditProduct />} />
             <Route path="delete/:id" element={<DeleteProduct />} />
+          </Route>
+          <Route path="/orders">
+            <Route index element={<Orders />} />
+            <Route path="add" element={<AddOrders />} />
+            <Route path="edit/:id" element={<EditOrder />} />
+            <Route path="delete/:id" element={<DeleteOrder />} />
           </Route>
         </Route>
         <Route element={<AuthGuard roles={managerAccessRoles} />}>

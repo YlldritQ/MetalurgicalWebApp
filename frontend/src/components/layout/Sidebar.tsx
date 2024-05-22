@@ -72,6 +72,12 @@ const Sidebar = () => {
         type="button"
         variant="secondary"
       />
+      <Button
+        label="Orders"
+        onClick={() => handleClick("/orders")}
+        type="button"
+        variant="secondary"
+      />
     </div>
   );
 };

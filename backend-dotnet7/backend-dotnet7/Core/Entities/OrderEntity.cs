@@ -1,5 +1,7 @@
 ﻿
 
+using backend_dotnet7.Core.Enum;
+
 namespace backend_dotnet7.Core.Entities
 {
     public class OrderEntity : BaseEntity<long>
@@ -10,7 +12,7 @@ namespace backend_dotnet7.Core.Entities
         public decimal Total { get; set; }
 
         public string Address { get; set; } 
-        public string PaymentMethod { get; set; }
+        public PaymentMethodEnum PaymentMethod { get; set; }
         public string Brand { get; set; }
 
         //Relations

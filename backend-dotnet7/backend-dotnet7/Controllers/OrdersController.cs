@@ -60,7 +60,7 @@ namespace backend_dotnet7.Controllers
         //UPDATE
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateOrder([FromRoute] long id, [FromBody] CreateUpdateOrderDto dto)
+        public async Task<IActionResult> UpdateOrder([FromRoute] long id, [FromBody] UpdateOrderdto dto)
         {
             var order = await _context.Orders.FirstOrDefaultAsync(q => q.Id == id);
             if (order is null)
@@ -71,6 +71,7 @@ namespace backend_dotnet7.Controllers
             order.Total = dto.Total;
             order.Address = dto.Address;
             order.PaymentMethod = dto.PaymentMethod;
+            
 
             await _context.SaveChangesAsync();
             return Ok("Order Updated Successfully");

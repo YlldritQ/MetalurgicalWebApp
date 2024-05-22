@@ -68,7 +68,6 @@ const Products: React.FC = () => {
             </thead>
             <tbody>
               {products.map((product) => (
-                // console.log(product.id);
                 <tr key={product.id}>
                   <td>{product.id}</td>
                   <td>{product.title}</td>
