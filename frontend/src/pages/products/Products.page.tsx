@@ -52,6 +52,7 @@ const Products: React.FC = () => {
       <Button variant="outlined" onClick={() => redirect("/products/add")}>
         <Add />
       </Button>
+
       {products.length === 0 ? (
         <h1>No Products</h1>
       ) : (

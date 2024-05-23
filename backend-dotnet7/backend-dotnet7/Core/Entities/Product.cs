@@ -7,11 +7,11 @@ namespace backend_dotnet7.Core.Entities
     {
 
         public string Brand { get; set; } = string.Empty;
-        public ProductSize Size { get; set; }
+        
         public string Title { get; set; } = string.Empty;
         
 
         //Relation
-        public ICollection<OrderEntity> Orders { get; set; } 
+        public ICollection<ProductOrder> ProductOrders { get; set; } 
     }
 }

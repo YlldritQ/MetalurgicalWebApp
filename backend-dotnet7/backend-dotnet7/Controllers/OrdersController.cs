@@ -70,7 +70,7 @@ namespace backend_dotnet7.Controllers
 
             order.Total = dto.Total;
             order.Address = dto.Address;
-            order.PaymentMethod = dto.PaymentMethod;
+          
             
 
             await _context.SaveChangesAsync();

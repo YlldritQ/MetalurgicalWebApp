@@ -6,7 +6,7 @@ namespace backend_dotnet7.Core.Dtos.Orders
     {
         public decimal Total { get; set; }
         public string Address { get; set; } 
-        public PaymentMethodEnum PaymentMethod { get; set; } 
+
         public long ProductId {  get; set; }
         public string Brand { get; set; } 
     }

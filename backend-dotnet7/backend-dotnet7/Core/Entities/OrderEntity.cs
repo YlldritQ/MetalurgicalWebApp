@@ -12,14 +12,13 @@ namespace backend_dotnet7.Core.Entities
         public decimal Total { get; set; }
 
         public string Address { get; set; } 
-        public PaymentMethodEnum PaymentMethod { get; set; }
+     
         public string Brand { get; set; }
 
         //Relations
-        public long ProductId { get; set; }
-        public Product Product { get; set; } 
+        public ICollection<ProductOrder> ProductOrders { get; set; }
 
         //Vendosim relacionin e ardhshem per tabelen tjeter
-        
+
     }
 }

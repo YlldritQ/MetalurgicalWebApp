@@ -12,6 +12,8 @@ namespace backend_dotnet7.Core.AutoMapperConfig
             CreateMap<CreateUpdateProductDto, Product>();
             CreateMap<Product, CreateUpdateProductDto>();
 
+           
+
 
             //Orders
             CreateMap<CreateUpdateOrderDto, OrderEntity>();
