@@ -1,4 +1,6 @@
-﻿namespace backend_dotnet7.Core.Entities
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace backend_dotnet7.Core.Entities
 {
     public class BaseEntity<TID>
     {
