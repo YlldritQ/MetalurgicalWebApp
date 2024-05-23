@@ -77,13 +77,6 @@ namespace backend_dotnet7.Controllers
             
 =======
             order.PaymentMethod = dto.PaymentMethod;
->>>>>>> parent of 88abc09 (Order Component)
-=======
-            order.PaymentMethod = dto.PaymentMethod;
->>>>>>> parent of 88abc09 (Order Component)
-=======
-            order.PaymentMethod = dto.PaymentMethod;
->>>>>>> parent of 88abc09 (Order Component)
 
             await _context.SaveChangesAsync();
             return Ok("Order Updated Successfully");
