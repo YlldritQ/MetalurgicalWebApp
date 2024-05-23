@@ -12,7 +12,11 @@ namespace backend_dotnet7.Core.Entities
         public string Address { get; set; } 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      
+=======
+        public string PaymentMethod { get; set; }
+>>>>>>> parent of 88abc09 (Order Component)
 =======
         public string PaymentMethod { get; set; }
 >>>>>>> parent of 88abc09 (Order Component)

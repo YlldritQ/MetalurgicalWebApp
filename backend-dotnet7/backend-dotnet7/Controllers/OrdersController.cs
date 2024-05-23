@@ -72,8 +72,12 @@ namespace backend_dotnet7.Controllers
             order.Address = dto.Address;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           
             
+=======
+            order.PaymentMethod = dto.PaymentMethod;
+>>>>>>> parent of 88abc09 (Order Component)
 =======
             order.PaymentMethod = dto.PaymentMethod;
 >>>>>>> parent of 88abc09 (Order Component)
