@@ -12,8 +12,11 @@ namespace backend_dotnet7.Core.AutoMapperConfig
             CreateMap<CreateUpdateProductDto, Product>();
             CreateMap<Product, CreateUpdateProductDto>();
 
+<<<<<<< HEAD
            
 
+=======
+>>>>>>> parent of 3860587 (Terminet)
 
             //Orders
             CreateMap<CreateUpdateOrderDto, OrderEntity>();
