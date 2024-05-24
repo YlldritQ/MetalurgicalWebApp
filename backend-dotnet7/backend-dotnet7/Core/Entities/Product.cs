@@ -9,9 +9,9 @@ namespace backend_dotnet7.Core.Entities
         public string Brand { get; set; } = string.Empty;
         
         public string Title { get; set; } = string.Empty;
-        
+    
 
         //Relation
-        public ICollection<ProductOrder> ProductOrders { get; set; } 
+        public List<Product_Order> Product_Orders { get; set; } 
     }
 }

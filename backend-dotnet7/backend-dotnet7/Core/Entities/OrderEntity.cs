@@ -14,7 +14,7 @@ namespace backend_dotnet7.Core.Entities
         public string Brand { get; set; }
 
         //Relations
-        public ICollection<ProductOrder> ProductOrders { get; set; }
+        public List<Product_Order> Product_Orders { get; set; }
 
         //Vendosim relacionin e ardhshem per tabelen tjeter
 

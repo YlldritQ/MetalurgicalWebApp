@@ -21,11 +21,8 @@ builder.Services
     });
 
 // DB
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("local");
-    options.UseSqlServer(connectionString);
-});
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("local"))
+           .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Debug));
 
 // Dependency Injection
 builder.Services.AddScoped<ILogService, LogService>();

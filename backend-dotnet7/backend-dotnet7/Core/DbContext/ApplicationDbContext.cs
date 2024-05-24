@@ -11,42 +11,41 @@ namespace backend_dotnet7.Core.DbContext
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<ProductOrder>ProductOrders { get; set; }
+
+
+
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<Product_Order> Product_Orders { get; set; }
 
         public DbSet<Termin> Termins { get; set; }
 
         public DbSet<Log> Logs { get; set; }
         public DbSet<Message> Messages { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder
-                .UseSqlServer("YourConnectionStringHere")
-                .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Debug);
-        }
+       
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-       
+            /*  builder.Entity<Product_Order>()
+                     .HasOne(p => p.Product)
+                     .WithMany(po => po.Product_Orders)
+                     .HasForeignKey(pi => pi.ProductId);
 
-            builder.Entity<ProductOrder>()
-                .HasKey(po => new { po.OrderId, po.ProductId });
+              builder.Entity<Product_Order>()
+                   .HasOne(o => o.Order)
+                   .WithMany(po => po.Product_Orders)
+                   .HasForeignKey(oi => oi.OrderId);
+            */
+            builder.Entity<Product_Order>()
+                  .HasKey(po => new { po.ProductId, po.OrderId });
 
-            // Configure the relationship between ProductOrder and OrderEntity
-            builder.Entity<ProductOrder>()
-                .HasOne(po => po.Order)
-                .WithMany(o => o.ProductOrders)
-                .HasForeignKey(po => po.OrderId);
+            builder.Entity<OrderEntity>()
+              .Property(o => o.Total)
+              .HasColumnType("decimal(18, 2)");
 
-            // Configure the relationship between ProductOrder and Product
-            builder.Entity<ProductOrder>()
-                .HasOne(po => po.Product)
-                .WithMany(p => p.ProductOrders)
-                .HasForeignKey(po => po.ProductId);
             //1
             builder.Entity<ApplicationUser>(e =>
             {

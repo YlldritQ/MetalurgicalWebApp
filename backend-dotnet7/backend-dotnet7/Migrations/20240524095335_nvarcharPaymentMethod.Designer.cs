@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend_dotnet7.Core.DbContext;
 
@@ -11,9 +12,11 @@ using backend_dotnet7.Core.DbContext;
 namespace backend_dotnet7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240524095335_nvarcharPaymentMethod")]
+    partial class nvarcharPaymentMethod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -336,6 +339,9 @@ namespace backend_dotnet7.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18, 2)");
 
@@ -343,6 +349,8 @@ namespace backend_dotnet7.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
                 });
@@ -378,36 +386,6 @@ namespace backend_dotnet7.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.Product_Order", b =>
-                {
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ProductId", "OrderId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Product_Orders");
                 });
 
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Termin", b =>
@@ -485,33 +463,20 @@ namespace backend_dotnet7.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.Product_Order", b =>
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.OrderEntity", b =>
                 {
-                    b.HasOne("backend_dotnet7.Core.Entities.OrderEntity", "Order")
-                        .WithMany("Product_Orders")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("backend_dotnet7.Core.Entities.Product", "Product")
-                        .WithMany("Product_Orders")
+                        .WithMany("OrderEntities")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
-
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.OrderEntity", b =>
-                {
-                    b.Navigation("Product_Orders");
                 });
 
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Product", b =>
                 {
-                    b.Navigation("Product_Orders");
+                    b.Navigation("OrderEntities");
                 });
 #pragma warning restore 612, 618
         }

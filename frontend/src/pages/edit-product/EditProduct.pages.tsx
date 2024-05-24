@@ -2,7 +2,7 @@ import React from "react";
 import { IProduct } from "../../types/global.typing";
 import "./editProduct.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Select, MenuItem } from "@mui/material";
 import axios from "axios";
 
 const EditProduct: React.FC = () => {
@@ -21,14 +21,23 @@ const EditProduct: React.FC = () => {
     });
   };
 
+  const getProductById = async () => {
+    await axios
+      .get<IProduct>(`https://localhost:7149/api/Product/${id}`)
+      .then((res) => {
+        const { data } = res;
+        setProduct({
+          title: data.title,
+          brand: data.brand,
+        });
+      });
+  };
+
   React.useEffect(() => {
-    axios.get<IProduct>(`https://localhost:7149/api/Product/${id}`).then(() =>
-      setProduct({
-        title: "",
-        brand: "",
-      })
-    );
-  }, []);
+    if (id) {
+      getProductById();
+    }
+  }, [id]);
 
   const handleSaveBtnClick = () => {
     if (product.title === "" || product.brand === "") {
@@ -73,6 +82,7 @@ const EditProduct: React.FC = () => {
         value={product.brand}
         onChange={changeHandler}
       />
+
       <div>
         <Button variant="outlined" color="primary" onClick={handleSaveBtnClick}>
           Save
