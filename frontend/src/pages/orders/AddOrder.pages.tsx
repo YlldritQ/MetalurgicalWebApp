@@ -1,14 +1,20 @@
+import React, { useEffect, useState, ChangeEvent } from "react";
 import {
   Box,
   Select,
   MenuItem,
   SelectChangeEvent,
   TextField,
-  Stack,
   Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
 import { IProduct } from "../../types/global.typing";
 import { useNavigate } from "react-router-dom";
 
@@ -41,7 +47,7 @@ export const AddOrder = () => {
   });
   const [productsList, setProductsList] = useState<Product[] | null>(null);
 
-  const redirect = useNavigate();
+  const navigate = useNavigate();
 
   const getProductsList = async () => {
     try {
@@ -53,29 +59,29 @@ export const AddOrder = () => {
   };
 
   const getProductById = async () => {
-    await axios
-      .get<IProduct>(
-        `https://localhost:7149/api/Product/${formValues?.productId}`
-      )
-      .then((res) => {
-        const { data } = res;
-
+    if (formValues.productId) {
+      try {
+        const res = await axios.get<IProduct>(
+          `https://localhost:7149/api/Product/${formValues.productId}`
+        );
         setFormValues((prevValues) => ({
           ...prevValues,
-          brand: data.brand,
+          brand: res.data.brand,
         }));
-      });
+      } catch (error) {
+        console.error("Error fetching product by ID:", error);
+      }
+    }
   };
 
   const addNewOrder = async () => {
     try {
       setIsAdding(true);
-      await axios.post(ADD_ORDER_URL, formValues).then(() => {
-        setIsAdding(false);
-        redirect("/orders");
-      });
+      await axios.post(ADD_ORDER_URL, formValues);
+      setIsAdding(false);
+      navigate("/orders");
     } catch (error) {
-      console.log("Error :", error);
+      console.log("Error adding new order:", error);
     }
   };
 
@@ -84,10 +90,10 @@ export const AddOrder = () => {
   }, []);
 
   useEffect(() => {
-    if (formValues?.productId) {
+    if (formValues.productId) {
       getProductById();
     }
-  }, [formValues?.productId]);
+  }, [formValues.productId]);
 
   const handleInputChange = (
     event:
@@ -109,51 +115,99 @@ export const AddOrder = () => {
         alignItems: "center",
         width: "100%",
         height: "100vh",
+        padding: 2,
       }}
     >
-      <Stack direction="column" spacing={1}>
-        <TextField
-          name="total"
-          type="number"
-          onChange={handleInputChange}
-          placeholder="Total"
-        />
-        <Select
-          name="productId"
-          value={formValues.productId}
-          onChange={handleInputChange}
-          placeholder="Product"
-        >
-          {productsList?.map((p) => (
-            <MenuItem key={p.id} value={p.id}>
-              {p.title}
-            </MenuItem>
-          ))}
-        </Select>
-        <TextField
-          name="address"
-          onChange={handleInputChange}
-          placeholder="Address"
-        />
-        <TextField
-          name="paymentMethod"
-          onChange={handleInputChange}
-          placeholder="Payment Method"
-        />
-        <TextField
-          name="brand"
-          onChange={handleInputChange}
-          placeholder="Brand"
-          value={formValues?.brand}
-        />
-        <Button
-          variant={isAdding ? "outlined" : "contained"}
-          disabled={isAdding}
-          onClick={addNewOrder}
-        >
-          {isAdding ? "Adding new order..." : "Add new order"}
-        </Button>
-      </Stack>
+      <TableContainer component={Paper} sx={{ maxWidth: 600 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell colSpan={2} align="center">
+                Add New Order
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>Total</TableCell>
+              <TableCell>
+                <TextField
+                  name="total"
+                  type="number"
+                  onChange={handleInputChange}
+                  placeholder="Total"
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>
+                <Select
+                  name="productId"
+                  value={formValues.productId}
+                  onChange={handleInputChange}
+                  fullWidth
+                >
+                  {productsList?.map((p) => (
+                    <MenuItem key={p.id} value={p.id}>
+                      {p.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Address</TableCell>
+              <TableCell>
+                <TextField
+                  name="address"
+                  onChange={handleInputChange}
+                  placeholder="Address"
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Payment Method</TableCell>
+              <TableCell>
+                <TextField
+                  name="paymentMethod"
+                  onChange={handleInputChange}
+                  placeholder="Payment Method"
+                  fullWidth
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Brand</TableCell>
+              <TableCell>
+                <TextField
+                  name="brand"
+                  onChange={handleInputChange}
+                  placeholder="Brand"
+                  value={formValues.brand}
+                  fullWidth
+                  disabled
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell colSpan={2} align="center">
+                <Button
+                  variant={isAdding ? "outlined" : "contained"}
+                  disabled={isAdding}
+                  onClick={addNewOrder}
+                >
+                  {isAdding ? "Adding new order..." : "Add new order"}
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };
+
+export default AddOrder;

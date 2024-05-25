@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend_dotnet7.Core.Dtos.Location;
 using backend_dotnet7.Core.Dtos.Orders;
 using backend_dotnet7.Core.Dtos.Product;
 using backend_dotnet7.Core.Dtos.Product_Order;
@@ -14,8 +15,6 @@ namespace backend_dotnet7.Core.AutoMapperConfig
             CreateMap<CreateUpdateProductDto, Product>();
             CreateMap<Product, CreateUpdateProductDto>();
 
-
-
             //Orders
             CreateMap<CreateUpdateOrderDto, OrderEntity>();
             CreateMap<OrderEntity, CreateUpdateOrderDto>();
@@ -30,8 +29,8 @@ namespace backend_dotnet7.Core.AutoMapperConfig
 
             //Product_Order
             CreateMap<CreateUpdateProductOrderDto, Product_Order>()
-     .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-     .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.OrderId));
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+                .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.OrderId));
 
             CreateMap<Product_Order, CreateUpdateProductOrderDto>()
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))

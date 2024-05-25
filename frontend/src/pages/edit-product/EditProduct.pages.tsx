@@ -2,7 +2,7 @@ import React from "react";
 import { IProduct } from "../../types/global.typing";
 import "./editProduct.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { TextField, Button, Select, MenuItem } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import axios from "axios";
 
 const EditProduct: React.FC = () => {

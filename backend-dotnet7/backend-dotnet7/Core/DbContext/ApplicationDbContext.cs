@@ -22,6 +22,8 @@ namespace backend_dotnet7.Core.DbContext
         public DbSet<Location> Locations { get; set; }
         public DbSet<TerminLocation> TerminLocations { get; set; }
 
+
+
         public DbSet<Log> Logs { get; set; }
         public DbSet<Message> Messages { get; set; }
 
@@ -31,16 +33,7 @@ namespace backend_dotnet7.Core.DbContext
         {
             base.OnModelCreating(builder);
 
-            /*  builder.Entity<Product_Order>()
-                     .HasOne(p => p.Product)
-                     .WithMany(po => po.Product_Orders)
-                     .HasForeignKey(pi => pi.ProductId);
-
-              builder.Entity<Product_Order>()
-                   .HasOne(o => o.Order)
-                   .WithMany(po => po.Product_Orders)
-                   .HasForeignKey(oi => oi.OrderId);
-            */
+          
             builder.Entity<Product_Order>()
                   .HasKey(po => new { po.ProductId, po.OrderId });
 

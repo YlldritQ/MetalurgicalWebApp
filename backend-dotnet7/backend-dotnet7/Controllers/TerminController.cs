@@ -20,7 +20,7 @@ namespace backend_dotnet7.Controllers
         {
             _context = context;
             _mapper = mapper;
-            
+
         }
         //CRUD
 
@@ -79,8 +79,8 @@ namespace backend_dotnet7.Controllers
             termin.Time = dto.Time;
             termin.Location = dto.Location;
             termin.ClientName = dto.ClientName;
-            termin.Description= dto.Description;
-            termin.Date= dto.Date;
+            termin.Description = dto.Description;
+            termin.Date = dto.Date;
 
             await _context.SaveChangesAsync();
             return Ok("Termin Updated Successfully");
@@ -101,5 +101,5 @@ namespace backend_dotnet7.Controllers
             return Ok("Termin Deleted");
         }
     }
-    
+
 }

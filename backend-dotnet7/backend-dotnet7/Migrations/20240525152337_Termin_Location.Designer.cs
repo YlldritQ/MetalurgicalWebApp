@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend_dotnet7.Core.DbContext;
 
@@ -11,9 +12,11 @@ using backend_dotnet7.Core.DbContext;
 namespace backend_dotnet7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240525152337_Termin_Location")]
+    partial class Termin_Location
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,7 +279,7 @@ namespace backend_dotnet7.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Log", b =>
@@ -495,8 +498,6 @@ namespace backend_dotnet7.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasKey("Id");
-
                     b.ToTable("Termin");
                 });
 
@@ -513,21 +514,6 @@ namespace backend_dotnet7.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Termin_Locations");
-                });
-
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.TerminLocation", b =>
-                {
-                    b.Property<long>("TerminId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("LocationId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("TerminId", "LocationId");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("TerminLocations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -600,7 +586,7 @@ namespace backend_dotnet7.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.TerminLocation", b =>
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Termin_Location", b =>
                 {
                     b.HasOne("backend_dotnet7.Core.Entities.Location", "Location")
                         .WithMany("TerminLocations")

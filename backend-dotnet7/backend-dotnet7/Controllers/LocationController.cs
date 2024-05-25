@@ -78,10 +78,10 @@ namespace backend_dotnet7.Controllers
                 return NotFound("Location Not Found");
             }
             location.LocationName = dto.LocationName;
-            location.StreetAddress= dto.StreetAddress;
-            location.City= dto.City;
-            location.Date= dto.Date;
-            location.Time= dto.Time;
+            location.StreetAddress = dto.StreetAddress;
+            location.City = dto.City;
+            location.Date = dto.Date;
+            location.Time = dto.Time;
 
             await _context.SaveChangesAsync();
             return Ok("Location Updated Successfully");

@@ -1,6 +1,6 @@
 ﻿namespace backend_dotnet7.Core.Entities
 {
-    public class Location:BaseEntity<long>
+    public class Location : BaseEntity<long>
     {
         public string LocationName { get; set; }
         public string StreetAddress { get; set; }
