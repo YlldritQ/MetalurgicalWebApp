@@ -1,15 +1,14 @@
 ﻿namespace backend_dotnet7.Core.Entities
 {
-    public class Termin:BaseEntity<long>
+    public class Location:BaseEntity<long>
     {
+        public string LocationName { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public string Time { get; set; }
-        public string Location { get; set; }
-        public string Description { get; set; }
-        public string ClientName { get; set; }
 
         //Relation
         public List<TerminLocation> TerminLocations { get; set; }
     }
-
 }
