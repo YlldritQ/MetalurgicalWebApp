@@ -14,16 +14,10 @@ namespace backend_dotnet7.Core.DbContext
 
 
 
+        public DbSet<Material> Materials { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<Product_Order> Product_Orders { get; set; }
-
-        public DbSet<Termin> Termins { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<TerminLocation> TerminLocations { get; set; }
-
-
-
         public DbSet<Log> Logs { get; set; }
         public DbSet<Message> Messages { get; set; }
 
@@ -37,8 +31,7 @@ namespace backend_dotnet7.Core.DbContext
             builder.Entity<Product_Order>()
                   .HasKey(po => new { po.ProductId, po.OrderId });
 
-            builder.Entity<TerminLocation>()
-                .HasKey(tl => new { tl.TerminId, tl.LocationId });
+        
 
             builder.Entity<OrderEntity>()
               .Property(o => o.Total)

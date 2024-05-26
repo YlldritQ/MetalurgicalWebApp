@@ -12,8 +12,8 @@ using backend_dotnet7.Core.DbContext;
 namespace backend_dotnet7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240525160834_TerminetLokacionet")]
-    partial class TerminetLokacionet
+    [Migration("20240526162157_removed")]
+    partial class removed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,50 +238,6 @@ namespace backend_dotnet7.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.Location", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LocationName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Locations");
-                });
-
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Log", b =>
                 {
                     b.Property<long>("Id")
@@ -457,65 +413,6 @@ namespace backend_dotnet7.Migrations
                     b.ToTable("Product_Orders");
                 });
 
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.Termin", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Termins");
-                });
-
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.TerminLocation", b =>
-                {
-                    b.Property<long>("TerminId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("LocationId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("TerminId", "LocationId");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("TerminLocations");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -586,30 +483,6 @@ namespace backend_dotnet7.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.TerminLocation", b =>
-                {
-                    b.HasOne("backend_dotnet7.Core.Entities.Location", "Location")
-                        .WithMany("TerminLocations")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend_dotnet7.Core.Entities.Termin", "Termin")
-                        .WithMany("TerminLocations")
-                        .HasForeignKey("TerminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Location");
-
-                    b.Navigation("Termin");
-                });
-
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.Location", b =>
-                {
-                    b.Navigation("TerminLocations");
-                });
-
             modelBuilder.Entity("backend_dotnet7.Core.Entities.OrderEntity", b =>
                 {
                     b.Navigation("Product_Orders");
@@ -618,11 +491,6 @@ namespace backend_dotnet7.Migrations
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Product", b =>
                 {
                     b.Navigation("Product_Orders");
-                });
-
-            modelBuilder.Entity("backend_dotnet7.Core.Entities.Termin", b =>
-                {
-                    b.Navigation("TerminLocations");
                 });
 #pragma warning restore 612, 618
         }

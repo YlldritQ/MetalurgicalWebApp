@@ -8,13 +8,17 @@ import { Edit, Delete, Add } from "@mui/icons-material";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
+import { RolesEnum } from "../../types/auth.types"; // Adjust the import path if necessary
+
+// Mock user object for demonstration purposes
+const user = {
+  role: RolesEnum.ADMIN, // Replace this with actual role determination logic
+};
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const location = useLocation();
   const redirect = useNavigate();
-
-  console.log(location);
 
   const fetchProductsList = async () => {
     try {
@@ -28,15 +32,13 @@ const Products: React.FC = () => {
         redirect(location.pathname, { replace: true });
       }
     } catch (error) {
-      alert("An Error Happend");
+      alert("An Error Happened");
     }
   };
 
   useEffect(() => {
     fetchProductsList();
   }, []);
-
-  console.log(products);
 
   const redirectToEditPage = (id: string) => {
     redirect(`/products/edit/${id}`);
@@ -46,12 +48,20 @@ const Products: React.FC = () => {
     redirect(`/products/delete/${id}`);
   };
 
+  const isAuthorizedToEditDelete = [
+    RolesEnum.OWNER,
+    RolesEnum.ADMIN,
+    RolesEnum.MANAGER,
+  ].includes(user.role);
+
   return (
     <div className="products">
       <h1>Products List</h1>
-      <Button variant="outlined" onClick={() => redirect("/products/add")}>
-        <Add />
-      </Button>
+      {isAuthorizedToEditDelete && (
+        <Button variant="outlined" onClick={() => redirect("/products/add")}>
+          <Add />
+        </Button>
+      )}
 
       {products.length === 0 ? (
         <h1>No Products</h1>
@@ -69,29 +79,31 @@ const Products: React.FC = () => {
             </thead>
             <tbody>
               {products.map((product) => (
-                // console.log(product.id);
                 <tr key={product.id}>
                   <td>{product.id}</td>
                   <td>{product.title}</td>
                   <td>{product.brand}</td>
                   <td>{product.size}</td>
-
                   <td>
-                    <Button
-                      variant="outlined"
-                      color="warning"
-                      sx={{ mx: 3 }}
-                      onClick={() => redirectToEditPage(product.id)}
-                    >
-                      <Edit />
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      onClick={() => redirectToDeletePage(product.id)}
-                    >
-                      <Delete />
-                    </Button>
+                    {isAuthorizedToEditDelete && (
+                      <>
+                        <Button
+                          variant="outlined"
+                          color="warning"
+                          sx={{ mx: 3 }}
+                          onClick={() => redirectToEditPage(product.id)}
+                        >
+                          <Edit />
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="error"
+                          onClick={() => redirectToDeletePage(product.id)}
+                        >
+                          <Delete />
+                        </Button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}

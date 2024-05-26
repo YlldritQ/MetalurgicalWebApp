@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using backend_dotnet7.Core.Dtos.Location;
+using backend_dotnet7.Core.Dtos.Materials;
 using backend_dotnet7.Core.Dtos.Orders;
 using backend_dotnet7.Core.Dtos.Product;
 using backend_dotnet7.Core.Dtos.Product_Order;
-using backend_dotnet7.Core.Dtos.TerminLocation;
+
 using backend_dotnet7.Core.Entities;
 
 namespace backend_dotnet7.Core.AutoMapperConfig
@@ -19,14 +19,7 @@ namespace backend_dotnet7.Core.AutoMapperConfig
             CreateMap<CreateUpdateOrderDto, OrderEntity>();
             CreateMap<OrderEntity, CreateUpdateOrderDto>();
 
-            //Termin
-            CreateMap<TerminLocationDto, Termin>();
-            CreateMap<Termin, TerminLocationDto>();
-
-            //Location
-            CreateMap<TerminLocationDto, Location>();
-            CreateMap<Location, TerminLocationDto>();
-
+          
             //Product_Order
             CreateMap<CreateUpdateProductOrderDto, Product_Order>()
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
@@ -36,14 +29,13 @@ namespace backend_dotnet7.Core.AutoMapperConfig
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.OrderId));
 
-            //TerminLocation
-            CreateMap<TerminLocationDto, TerminLocation>()
-     .ForMember(dest => dest.TerminId, opt => opt.MapFrom(src => src.TerminId))
-     .ForMember(dest => dest.LocationId, opt => opt.MapFrom(src => src.LocationId));
+            //Material
+            CreateMap<MaterialDto, Material>();
+            CreateMap<Material, MaterialDto>();
 
-            CreateMap<TerminLocation, TerminLocationDto>()
-                .ForMember(dest => dest.TerminId, opt => opt.MapFrom(src => src.TerminId))
-                .ForMember(dest => dest.LocationId, opt => opt.MapFrom(src => src.LocationId));
+            //Supplier
+
+           
         }
     }
 }
