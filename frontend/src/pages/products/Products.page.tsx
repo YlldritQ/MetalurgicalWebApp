@@ -9,16 +9,13 @@ import { Edit, Delete, Add } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { RolesEnum } from "../../types/auth.types"; // Adjust the import path if necessary
-
-// Mock user object for demonstration purposes
-const user = {
-  role: RolesEnum.ADMIN, // Replace this with actual role determination logic
-};
+import useAuth from "../../hooks/useAuth.hook";
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const location = useLocation();
   const redirect = useNavigate();
+  const { user } = useAuth();
 
   const fetchProductsList = async () => {
     try {
@@ -52,12 +49,15 @@ const Products: React.FC = () => {
     RolesEnum.OWNER,
     RolesEnum.ADMIN,
     RolesEnum.MANAGER,
-  ].includes(user.role);
+  ];
+  const hasPermission = user?.roles.some((role) =>
+    isAuthorizedToEditDelete.includes(role)
+  );
 
   return (
     <div className="products">
       <h1>Products List</h1>
-      {isAuthorizedToEditDelete && (
+      {hasPermission && (
         <Button variant="outlined" onClick={() => redirect("/products/add")}>
           <Add />
         </Button>
@@ -73,7 +73,6 @@ const Products: React.FC = () => {
                 <th>Id</th>
                 <th>Title</th>
                 <th>Brand</th>
-                <th>Size</th>
                 <th>Operations</th>
               </tr>
             </thead>
@@ -83,9 +82,10 @@ const Products: React.FC = () => {
                   <td>{product.id}</td>
                   <td>{product.title}</td>
                   <td>{product.brand}</td>
-                  <td>{product.size}</td>
+
+                  {/* <td>{product.size}</td> */}
                   <td>
-                    {isAuthorizedToEditDelete && (
+                    {hasPermission && (
                       <>
                         <Button
                           variant="outlined"

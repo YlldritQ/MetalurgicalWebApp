@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 interface IProps {
   variant: "primary" | "secondary" | "danger" | "light";
   type: "submit" | "button";
@@ -5,6 +7,7 @@ interface IProps {
   onClick: () => void;
   loading?: boolean;
   disabled?: boolean;
+  icon?: ReactNode;
 }
 
 const Button = ({
@@ -14,12 +17,13 @@ const Button = ({
   onClick,
   loading,
   disabled,
+  icon,
 }: IProps) => {
   const primaryClasses =
     " text-white bg-[#754eb4] border-[#754eb4] hover:shadow-[0_0_5px_5px_#754eb44c]";
 
   const secondaryClasses =
-    " text-white bg-amber-400 border-amber-400 hover:shadow-[0_0_5px_5px_#fbbe2465]";
+    " text-white bg-transparent border-0 hover:bg-[#7E8EF1]";
 
   const dangerClasses =
     " text-white bg-[#AE899A] border-[#AE899A] hover:shadow-[0_0_5px_5px_#ae899a70]";
@@ -28,8 +32,7 @@ const Button = ({
     " text-[#754eb4] border-[#754eb4] hover:shadow-[0_0_5px_5px_#754eb44c]";
 
   const classNameCreator = (): string => {
-    let finalClassName =
-      "flex justify-center items-center outline-none duration-300 h-10 text-lg font-semibold px-6 rounded-2xl border-2";
+    let finalClassName = `flex ${icon && "space-x-4"} items-center outline-none duration-300 h-10 text-md font-normal px-6 rounded-md border-2`;
     if (variant === "primary") {
       finalClassName += primaryClasses;
     } else if (variant === "secondary") {
@@ -57,6 +60,7 @@ const Button = ({
       className={classNameCreator()}
       disabled={disabled}
     >
+      {icon && icon}
       {loading ? loadingIconCreator() : label}
     </button>
   );

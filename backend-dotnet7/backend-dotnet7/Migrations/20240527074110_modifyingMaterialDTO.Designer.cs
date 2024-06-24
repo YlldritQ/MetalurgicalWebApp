@@ -12,8 +12,8 @@ using backend_dotnet7.Core.DbContext;
 namespace backend_dotnet7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240525150407_droptinTable")]
-    partial class droptinTable
+    [Migration("20240527074110_modifyingMaterialDTO")]
+    partial class modifyingMaterialDTO
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,6 +270,32 @@ namespace backend_dotnet7.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Material", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("Materials");
+                });
+
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Message", b =>
                 {
                     b.Property<long>("Id")
@@ -413,6 +439,27 @@ namespace backend_dotnet7.Migrations
                     b.ToTable("Product_Orders");
                 });
 
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Info")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -464,6 +511,17 @@ namespace backend_dotnet7.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Material", b =>
+                {
+                    b.HasOne("backend_dotnet7.Core.Entities.Supplier", "Supplier")
+                        .WithMany("Materials")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+                });
+
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Product_Order", b =>
                 {
                     b.HasOne("backend_dotnet7.Core.Entities.OrderEntity", "Order")
@@ -491,6 +549,11 @@ namespace backend_dotnet7.Migrations
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Product", b =>
                 {
                     b.Navigation("Product_Orders");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Supplier", b =>
+                {
+                    b.Navigation("Materials");
                 });
 #pragma warning restore 612, 618
         }

@@ -73,46 +73,52 @@ const EditOrders: React.FC = () => {
   };
 
   return (
-    <div className="edit-order">
-      <h2>Edit Order</h2>
+    <div className="edit-order-container">
+      <div className="edit-order">
+        <h2>Edit Order</h2>
 
-      <TextField
-        autoComplete="off"
-        label="Total"
-        variant="outlined"
-        name="total"
-        type="number"
-        value={order.total}
-        onChange={changeHandler}
-      />
-      <TextField
-        autoComplete="off"
-        label="Address"
-        variant="outlined"
-        name="address"
-        value={order.address}
-        onChange={changeHandler}
-      />
-      <TextField
-        autoComplete="off"
-        label="Payment Method"
-        variant="outlined"
-        name="paymentMethod"
-        value={order.paymentMethod}
-        onChange={changeHandler}
-      />
-
-      <div>
-        <Button variant="outlined" color="primary" onClick={handleSaveBtnClick}>
-          Save
-        </Button>
-        <Button
+        <TextField
+          autoComplete="off"
+          label="Total"
           variant="outlined"
-          color="secondary"
-          onClick={handleBackBtnClick}
-        >
-          Back
-        </Button>
+          name="total"
+          type="number"
+          value={order.total}
+          onChange={changeHandler}
+        />
+        <TextField
+          autoComplete="off"
+          label="Address"
+          variant="outlined"
+          name="address"
+          value={order.address}
+          onChange={changeHandler}
+        />
+        <TextField
+          autoComplete="off"
+          label="Payment Method"
+          variant="outlined"
+          name="paymentMethod"
+          value={order.paymentMethod}
+          onChange={changeHandler}
+        />
+
+        <div className="button-container">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleSaveBtnClick}
+          >
+            Save
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleBackBtnClick}
+          >
+            Back
+          </Button>
+        </div>
       </div>
     </div>
   );

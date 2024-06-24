@@ -16,7 +16,7 @@ namespace backend_dotnet7.Core.Entities
         //Relations
         public List<Product_Order> Product_Orders { get; set; }
 
-        //Vendosim relacionin e ardhshem per tabelen tjeter
+        
 
     }
 }

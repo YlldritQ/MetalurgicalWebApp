@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PATH_DASHBOARD, PATH_PUBLIC } from "./paths";
 import AuthGuard from "../auth/AuthGuard";
@@ -9,6 +9,24 @@ import {
   ownerAccessRoles,
 } from "../auth/auth.utils";
 import Layout from "../components/layout";
+import AddMaterial from "../pages/materials/AddMaterial.page";
+import Supplier from "../pages/suppliers/Supplier.page";
+import EditSupplier from "../pages/suppliers/EditSupplier.page";
+import AddSupplier from "../pages/suppliers/AddSupplier.page";
+import ProjectTask from "../pages/projectsTask/ProjectTask.pages";
+import EditProjectTask from "../pages/projectsTask/EditProjectTask.page";
+import AddProjectTask from "../pages/projectsTask/AddProjectTask.page";
+import Project from "../pages/projects/Project.page";
+import EditProject from "../pages/projects/EditProject.page";
+import AddProject from "../pages/projects/AddProject.page";
+import HeatTreatment from "../pages/heatTreatment/HeatTreatment.page";
+import EditHeatTreatments from "../pages/heatTreatment/EditHeatTreatments.page";
+import AddHeatTreatment from "../pages/heatTreatment/AddHeatTreatment.page";
+import Corrosion from "../pages/corrosion/Corrosion.page";
+import AddCorrosion from "../pages/corrosion/AddCorrosion.page";
+import EditCorrosion from "../pages/corrosion/EditCorrosion.page";
+
+//
 
 // Lazy load components
 const AdminPage = lazy(() => import("../pages/dashboard/AdminPage"));
@@ -41,6 +59,8 @@ const EditOrders = lazy(() => import("../pages/edit-orders/EditOrders.pages"));
 const DeleteOrder = lazy(
   () => import("../pages/delete-order/DeleteOrder.page")
 );
+const Materials = lazy(() => import("../pages/materials/Materials.pages"));
+const EditMaterial = lazy(() => import("../pages/materials/EditMaterial.page"));
 
 const GlobalRouter = () => {
   return (
@@ -80,6 +100,95 @@ const GlobalRouter = () => {
         />
 
         <Route element={<AuthGuard roles={allAccessRoles} />}>
+          <Route path="/materials">
+            <Route
+              index
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Materials />
+                </Suspense>
+              }
+            />
+            <Route
+              path="add"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AddMaterial />
+                </Suspense>
+              }
+            />
+            <Route
+              path="edit/:id"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <EditMaterial />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route path="/suppliers">
+            <Route
+              index
+              element={
+                <Suspense fallback={<div>LOading...</div>}>
+                  <Supplier />
+                </Suspense>
+              }
+            />
+            <Route path="edit/:id" element={<EditSupplier />} />
+            <Route path="add" element={<AddSupplier />} />
+          </Route>
+          <Route path="/projectTasks">
+            <Route
+              index
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <ProjectTask />
+                </Suspense>
+              }
+            />
+            <Route path="edit/:id" element={<EditProjectTask />} />
+            <Route path="add" element={<AddProjectTask />} />
+          </Route>
+
+          <Route path="/projects">
+            <Route
+              index
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Project />
+                </Suspense>
+              }
+            />
+            <Route path="edit/:id" element={<EditProject />} />
+            <Route path="add" element={<AddProject />} />
+          </Route>
+
+          <Route path="/heatTreatments">
+            <Route
+              index
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <HeatTreatment />
+                </Suspense>
+              }
+            />
+            <Route path="edit/:id" element={<EditHeatTreatments />} />
+            <Route path="add" element={<AddHeatTreatment />} />
+          </Route>
+          <Route path="/corrosions">
+            <Route
+              index
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Corrosion />
+                </Suspense>
+              }
+            />
+            <Route path="add" element={<AddCorrosion />} />
+            <Route path="edit/:id" element={<EditCorrosion />} />
+          </Route>
+
           <Route
             path={PATH_DASHBOARD.dashboard}
             element={
@@ -117,7 +226,7 @@ const GlobalRouter = () => {
           />
         </Route>
 
-        <Route element={<AuthGuard roles={adminAccessRoles} />}>
+        <Route element={<AuthGuard roles={allAccessRoles} />}>
           <Route path="/products">
             <Route
               index

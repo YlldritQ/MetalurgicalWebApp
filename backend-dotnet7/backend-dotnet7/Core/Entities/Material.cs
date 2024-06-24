@@ -9,7 +9,9 @@ namespace backend_dotnet7.Core.Entities
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public int SupplierId { get; set; }
+        public Supplier Supplier { get; set; }
 
-        //Relation
+ 
     }
 }

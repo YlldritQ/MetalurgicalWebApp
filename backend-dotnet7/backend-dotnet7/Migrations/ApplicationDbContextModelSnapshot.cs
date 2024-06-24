@@ -235,6 +235,76 @@ namespace backend_dotnet7.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Corrosion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CorrosionRate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Environment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaterialName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProtectiveCoating")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Corrosions");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.HeatTreatment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CoolingMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CorrosionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProcessName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Temperature")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeDuration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CorrosionId");
+
+                    b.ToTable("HeatTreatments");
+                });
+
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Log", b =>
                 {
                     b.Property<long>("Id")
@@ -283,7 +353,12 @@ namespace backend_dotnet7.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Materials");
                 });
@@ -431,6 +506,98 @@ namespace backend_dotnet7.Migrations
                     b.ToTable("Product_Orders");
                 });
 
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Project", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
+
+                    b.Property<double>("Budget")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProjectManager")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.ProjectTask", b =>
+                {
+                    b.Property<int>("ProjectTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectTaskId"));
+
+                    b.Property<string>("AssignedTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectTaskId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectTasks");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Info")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -482,6 +649,28 @@ namespace backend_dotnet7.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.HeatTreatment", b =>
+                {
+                    b.HasOne("backend_dotnet7.Core.Entities.Corrosion", "Corrosion")
+                        .WithMany("HeatTreatments")
+                        .HasForeignKey("CorrosionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Corrosion");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Material", b =>
+                {
+                    b.HasOne("backend_dotnet7.Core.Entities.Supplier", "Supplier")
+                        .WithMany("Materials")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+                });
+
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Product_Order", b =>
                 {
                     b.HasOne("backend_dotnet7.Core.Entities.OrderEntity", "Order")
@@ -501,6 +690,22 @@ namespace backend_dotnet7.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.ProjectTask", b =>
+                {
+                    b.HasOne("backend_dotnet7.Core.Entities.Project", "Project")
+                        .WithMany("ProjectTasks")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Corrosion", b =>
+                {
+                    b.Navigation("HeatTreatments");
+                });
+
             modelBuilder.Entity("backend_dotnet7.Core.Entities.OrderEntity", b =>
                 {
                     b.Navigation("Product_Orders");
@@ -509,6 +714,16 @@ namespace backend_dotnet7.Migrations
             modelBuilder.Entity("backend_dotnet7.Core.Entities.Product", b =>
                 {
                     b.Navigation("Product_Orders");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Project", b =>
+                {
+                    b.Navigation("ProjectTasks");
+                });
+
+            modelBuilder.Entity("backend_dotnet7.Core.Entities.Supplier", b =>
+                {
+                    b.Navigation("Materials");
                 });
 #pragma warning restore 612, 618
         }
